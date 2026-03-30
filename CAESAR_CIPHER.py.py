@@ -1,8 +1,9 @@
 alphabets = [chr(i) for i in range(ord('a'), ord('z') + 1)]
 
-direction  = input("Type encode to encrypt type decode to decrypt: ").lower()
+
 text = input("enter you message").lower()
 shift = int(input("how many characters do you want to shift?"))
+direction  = input("Type encode to encrypt type decode to decrypt: ").lower()
 
 #encrypting function
 def encrypt(text,shift):
@@ -28,21 +29,15 @@ def encrypt(text,shift):
     print("encrypted letter is:",new_word)
 
 def decrypt(text,shift):
-    primary_shift = shift
     new_word = ""
     for letter in text:
         if letter in alphabets:
-            if (alphabets.index(letter )-shift)<0:
-                shift = (alphabets.index(letter)-shift)%len(alphabets)
-            else:
-                shift = primary_shift
-            new_word+=alphabets[(alphabets.index(letter)-shift)%len(alphabets)]
-
+            shifted_position = (alphabets.index(letter)-shift)%len(alphabets)
+            new_word += alphabets[shifted_position]
         else:
             new_word+=letter
-
-    print("encrypted letter is:",new_word)
-
+    print("decrypted letter is:",new_word)
+    
 while True:
     if direction == "encode":
         encrypt(text,shift)
@@ -55,7 +50,6 @@ while True:
         print("good bye")
         break
     elif result == "yes":
-        direction  = input("Type encode to encrypt type decode to decrypt: ").lower()
         text = input("enter you message").lower()
         shift = int(input("how many characters do you want to shift?"))
-    
+        direction  = input("Type encode to encrypt type decode to decrypt: ").lower()
